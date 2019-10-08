@@ -29,5 +29,15 @@ var connection = mysql.createConnection({
             FIND YOUR PRODUCTS HERE!
             `)
         }) 
+        var table = new table({
+            head: [`id`, `product_name`,`department_id`, `price`, `stock_quantity`],
+            colWidths: [12, 50, 8],
+            colAligns: ["center", "left", "right"],
+            style: {
+                head: ["aqua"],
+                compact: true
+            }
+        });
+
         
     };
