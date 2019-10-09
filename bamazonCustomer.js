@@ -37,6 +37,31 @@ var connection = mysql.createConnection({
         })
     };
 
-    
+    function shop() {
+        connection.query("SELECT * FROM products", function (err,res){
+            inquirer
+                .prompt([{
+                    name: "choice",
+                    type: "list",
+                    choices: function() {
+                        var choiceArr = [];
+                        for (var i = 0; i < res.length; i++) {
+                            choiceArr.push(res[i].id.toString());
+                        }
+                        return choiceArr;
+                    },
+                    message: "What Item tickles your fancy? (choose by ID)"
+                },
+            {
+                name: "quantity",
+                type: "list",
+                choices: ["1", "2","3", "4", "5"],
+                message: "How many would you like to purchase?"
+            }
+        ])
+        
+        })
+    }
+
 
     
