@@ -15,6 +15,22 @@ var connection = mysql.createConnection({
     password: "root",
     database: "bamazon_DB",
     })
-    connection.connect();
+
+    connection.connect(function (err){
+        if (err) throw err;
+
+        displayProducts();
+        setTimeout(shop, 3000)
+    });
+
+    function displayProducts() {
+        connection.query("SELECT * FROM products", function(err, res){
+            console.log(`
+            ==========================================================================
+            ID | Product | Price
+            ==========================================================================
+            `);
+        })
+    }
 
     
