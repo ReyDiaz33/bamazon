@@ -59,7 +59,31 @@ var connection = mysql.createConnection({
                 message: "How many would you like to purchase?"
             }
         ])
-        
+        .then(function(answer){
+            var chosenItems;
+            for (var i = 0; i < res.length; i++) {
+                if (res[i].id === parseInt(answer.choice)){
+                    chosenItem = res[i];
+                }
+            }
+
+        var  totalPaid = chosenItems.price * answer.quantity;
+
+        if(chosenItems.stock_quantity <= parseInt(answer.quantity)) {
+            connection.query(
+                "Update products Set ? Where?",
+                [
+                    {
+                        stock_quantity: chosenItems.stock_quantity - answer.quantity
+                    },
+                    {
+                        id: chosenItems.id
+                    }
+                ],
+                
+            )
+        }
+        })
         })
     }
 
