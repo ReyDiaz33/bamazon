@@ -63,13 +63,13 @@ function shop() {
                 var chosenItems;
                 for (var i = 0; i < res.length; i++) {
                     if (res[i].id === parseInt(answer.choice)) {
-                        chosenItem = res[i];
+                        chosenItems = res[i];
                     }
                 }
 
                 var totalPaid = chosenItems.price * answer.quantity;
 
-                if (chosenItems.stock_quantity <= parseInt(answer.quantity)) {
+                if (chosenItems.stock_quantity >= parseInt(answer.quantity)) {
                     connection.query(
                         "Update products Set ? Where?",
                         [
@@ -83,8 +83,7 @@ function shop() {
                         function (error) {
                             if (err) throw err;
                             console.log("Purchase Made! Damn Bro you spent a total of $" + totalPaid);
-                            setTimeout(displayProducts, 3000);
-                            setTimeout(shop, 5000);
+                            connection.end();
                         }
                     )
                 }
